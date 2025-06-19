@@ -16,7 +16,11 @@
 			"architect": {
 				"build": {
 					"builder": "@angular-architects/native-federation:build",
-					"options": {},
+          "options": {
+            "styles": [
+              "src/custom-theme.scss"
+            ]
+          },
 					"configurations": {
 						"production": {
 							"target": "control-farm:esbuild:production"
@@ -56,7 +60,7 @@
 							}
 						],
 						"styles": [
-							"src/styles.scss"
+							"src/custom-theme.scss"
 						],
 						"scripts": []
 					}
@@ -80,7 +84,7 @@
 							}
 						],
 						"styles": [
-							"src/styles.scss"
+							"src/custom-theme.scss"
 						],
 						"scripts": []
 					},
