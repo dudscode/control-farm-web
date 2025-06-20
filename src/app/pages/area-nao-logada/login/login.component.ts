@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
-  hide = signal(true);
-  readonly checked = model(false);
+  hidePassword = signal(true);
+  readonly checkedRememberLogin = model(false);
 
   constructor(private router: Router) { }
 
@@ -29,12 +29,12 @@ export class LoginComponent implements OnInit {
     if (email?.length && password?.length) {
       this.emailFormControl.setValue(email);
       this.passwordFormControl.setValue(password);
-      this.checked.set(true);
+      this.checkedRememberLogin.set(true);
     }
   }
 
   showPassword(event: MouseEvent) {
-    this.hide.set(!this.hide());
+    this.hidePassword.set(!this.hidePassword());
     event.stopPropagation();
   }
 
@@ -56,12 +56,13 @@ export class LoginComponent implements OnInit {
   }
 
   goToLogin() {
+    // Fazer o Login do usuário no firebase
     this.rememberMe();
     this.router.navigate(['/home']);
   }
 
   rememberMe() {
-    if (!this.checked()) { this.clearLocalStorage(); return; }
+    if (!this.checkedRememberLogin()) { this.clearLocalStorage(); return; }
     const email = this.emailFormControl.value;
     const password = this.passwordFormControl.value;
     localStorage.setItem('email_farm', email ?? '');
