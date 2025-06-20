@@ -1,4 +1,4 @@
-import { Component, model, OnInit, signal } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,9 @@ export class LoginComponent implements OnInit {
   hidePassword = signal(true);
   readonly checkedRememberLogin = model(false);
 
-  constructor(private router: Router) { }
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  private _snackBar = inject(MatSnackBar);
 
   ngOnInit() {
     const email = localStorage.getItem('email_farm');
@@ -56,9 +60,22 @@ export class LoginComponent implements OnInit {
   }
 
   goToLogin() {
-    // Fazer o Login do usuário no firebase
     this.rememberMe();
-    this.router.navigate(['/home']);
+    const email = this.emailFormControl.value as string;
+    const password = this.passwordFormControl.value as string;
+
+    this.authService.login(email, password).subscribe({
+      next: (res) => {
+        console.log('Logado com sucesso:', res)
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        this._snackBar.open('Erro no login: ' + err.message, 'Fechar', {
+          duration: 5000
+        });
+      }
+    });
+
   }
 
   rememberMe() {
