@@ -1,4 +1,4 @@
-import { Component, model, OnInit, signal } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/services/auth/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +20,12 @@ export class LoginComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
-  hide = signal(true);
-  readonly checked = model(false);
+  hidePassword = signal(true);
+  readonly checkedRememberLogin = model(false);
 
-  constructor(private router: Router) { }
+  private router = inject(Router);
+  private authService = inject(AuthService);
+  private _snackBar = inject(MatSnackBar);
 
   ngOnInit() {
     const email = localStorage.getItem('email_farm');
@@ -29,12 +33,12 @@ export class LoginComponent implements OnInit {
     if (email?.length && password?.length) {
       this.emailFormControl.setValue(email);
       this.passwordFormControl.setValue(password);
-      this.checked.set(true);
+      this.checkedRememberLogin.set(true);
     }
   }
 
   showPassword(event: MouseEvent) {
-    this.hide.set(!this.hide());
+    this.hidePassword.set(!this.hidePassword());
     event.stopPropagation();
   }
 
@@ -57,11 +61,25 @@ export class LoginComponent implements OnInit {
 
   goToLogin() {
     this.rememberMe();
-    this.router.navigate(['/home']);
+    const email = this.emailFormControl.value as string;
+    const password = this.passwordFormControl.value as string;
+
+    this.authService.login(email, password).subscribe({
+      next: (res) => {
+        console.log('Logado com sucesso:', res)
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        this._snackBar.open('Erro no login: ' + err.message, 'Fechar', {
+          duration: 5000
+        });
+      }
+    });
+
   }
 
   rememberMe() {
-    if (!this.checked()) { this.clearLocalStorage(); return; }
+    if (!this.checkedRememberLogin()) { this.clearLocalStorage(); return; }
     const email = this.emailFormControl.value;
     const password = this.passwordFormControl.value;
     localStorage.setItem('email_farm', email ?? '');

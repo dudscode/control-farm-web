@@ -1,0 +1,12 @@
+@use '../area-nao-logada.scss';
+
+.not-found__content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    button {
+            border-radius: 8px;
+            opacity: 0.9;
+        }
+}

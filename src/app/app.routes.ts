@@ -3,24 +3,37 @@ import { loadRemoteModule } from '@angular-architects/native-federation';
 import { HomeComponent } from './pages/area-logada/home/home.component';
 import { LoginComponent } from './pages/area-nao-logada/login/login.component';
 import { RegisterComponent } from './pages/area-nao-logada/register/register.component';
+import { AuthGuard } from './core/guards/auth/auth.guard';
+import { RedirectIfLoggedInGuard } from './core/guards/redirect/redirect.guards';
+import { NotFoundComponent } from './pages/area-nao-logada/not-found/not-found.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [RedirectIfLoggedInGuard],
 
     },
     {
         path: 'home',
         component: HomeComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'register',
         component: RegisterComponent,
+        canActivate: [RedirectIfLoggedInGuard],
+    },
+    {
+        path: 'not-found',
+        component: NotFoundComponent,
     },
     {
     path: 'mfe',
     loadComponent: () =>
         loadRemoteModule('control-farm-mfe', './Component').then((m) => m.AppComponent),
+  },{
+    path: '**',
+    redirectTo: '',
   },
 ];
