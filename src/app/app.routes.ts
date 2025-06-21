@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/area-nao-logada/login/login.component';
 import { RegisterComponent } from './pages/area-nao-logada/register/register.component';
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { RedirectIfLoggedInGuard } from './core/guards/redirect/redirect.guards';
+import { NotFoundComponent } from './pages/area-nao-logada/not-found/not-found.component';
 
 export const routes: Routes = [
     {
@@ -22,6 +23,10 @@ export const routes: Routes = [
         path: 'register',
         component: RegisterComponent,
         canActivate: [RedirectIfLoggedInGuard],
+    },
+    {
+        path: 'not-found',
+        component: NotFoundComponent,
     },
     {
     path: 'mfe',
