@@ -1,0 +1,58 @@
+@use '@angular/material' as mat;
+
+.menu-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+
+    &-header {
+        width: 100%;
+        margin-top: 8px;
+
+        display: flex;
+        gap: 4rem;
+        flex-direction: column;
+        align-items: center;
+
+
+        &__buttons {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            mat-button-toggle-group {
+                border: none;
+                border-radius: 0;
+                gap: 16px;
+                width: 80%;
+
+                mat-button-toggle {
+                    border-radius: 6px;
+                    width: 100%;
+                }
+            }
+
+            @include mat.button-toggle-overrides((divider-color: none,
+                    selected-state-background-color: #4880FF,
+                    selected-state-text-color: #FFFFFF));
+
+        }
+    }
+
+    &-footer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        button {
+            border-radius: 8px;
+        }
+
+        @include mat.divider-overrides((color: #E0E0E0,
+            ));
+    }
+
+
+}

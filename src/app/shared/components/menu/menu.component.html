@@ -1,0 +1,36 @@
+<section class="menu-container">
+    <div class="menu-container-header">
+
+        <div class="menu-container-header__logo">
+            <img src="shared/assets/logo.svg" alt="Logo Farm">
+        </div>
+        <div class="menu-container-header__buttons">
+            <mat-button-toggle-group name="navigator" aria-label="Navegacao para a pagina" vertical="true"
+                [hideSingleSelectionIndicator]="true">
+                <mat-button-toggle value="vendas" checked [routerLink]="['/home/vendas']">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="shopping_cart" ></mat-icon>
+                    Vendas
+                </mat-button-toggle>
+                <mat-button-toggle value="producao" [routerLink]="['/home/producao']">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon"
+                        fontIcon="precision_manufacturing"></mat-icon>
+                    Produção
+                </mat-button-toggle>
+                <mat-button-toggle value="metas" [routerLink]="['/home/metas']">
+                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="radar"></mat-icon>
+                    Metas
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </div>
+    <div class="menu-container-footer">
+        <mat-divider></mat-divider>
+
+
+        <button mat-button (click)="logout()" >
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout"></mat-icon>
+            Logout
+        </button>
+
+    </div>
+</section>

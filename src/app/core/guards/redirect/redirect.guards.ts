@@ -17,7 +17,7 @@ export class RedirectIfLoggedInGuard implements CanActivate {
     return this.authService.user$.pipe(
       map(user => {
         const redirecionar = !!user;
-        return redirecionar ? this.router.createUrlTree(['/home']) : true;
+        return redirecionar ? this.router.createUrlTree(['/home/vendas']) : true;
       })
     );
   }

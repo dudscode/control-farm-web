@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe({
       next: (res) => {
         console.log('Logado com sucesso:', res)
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home/vendas']);
       },
       error: (err) => {
         this._snackBar.open('Erro no login: ' + err.message, 'Fechar', {
