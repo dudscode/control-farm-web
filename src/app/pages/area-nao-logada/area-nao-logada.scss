@@ -1,0 +1,120 @@
+@use '@angular/material' as mat;
+
+
+section {
+    width: 100%;
+    height: 100%;
+    background-image: url('../../shared/assets/Shape.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+
+    .area-nao-logada {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .form {
+            min-width: 150px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .form-full-width {
+            width: 100%;
+        }
+
+        &__button-container {
+            width: 80%;
+            display: flex;
+            justify-content: center;
+
+            margin-bottom: 8px;
+
+            button {
+                width: 100%;
+            }
+        }
+
+        mat-card-content {
+            p {
+                opacity: 0.8;
+                font-size: 16px;
+                font-weight: 400;
+            }
+        }
+
+        mat-card-title {
+            margin-bottom: 8px;
+        }
+    }
+}
+
+.area-nao-logada__bg {
+    background-color: #3F9D61;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    mat-card {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    mat-card-title,
+    mat-card-subtitle {
+        text-align: center;
+    }
+
+    mat-card-subtitle {
+        opacity: 0.8;
+    }
+
+    mat-card-header {
+        padding: 32px 16px;
+        min-width: 27vw;
+        justify-content: center;
+
+    }
+
+    mat-card-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        button {
+            border-radius: 8px;
+            opacity: 0.9;
+        }
+
+        .redirect {
+            display: flex;
+            width: 90%;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 14px;
+        }
+
+        a {
+            color: #3F9D61;
+            text-decoration-line: underline;
+            text-decoration-style: solid;
+            cursor: pointer;
+        }
+
+        a:hover {
+            text-decoration-line: none;
+        }
+    }
+
+    @include mat.card-overrides((subtitle-text-weight: 400,
+            subtitle-text-size: 16px,
+            subtitle-text-line-height: normal,
+            title-text-size: 24px));
+}
