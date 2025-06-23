@@ -1,27 +1,26 @@
-import { Component, inject } from '@angular/core';
-import { AuthService } from '../../../core/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MenuComponent } from '../../../shared/components/menu/menu.component';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from "../../../shared/components/header/header.component";
+import { UserService } from '../../../core/services/user/user.service';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [MatSidenavModule, MenuComponent, RouterOutlet, HeaderComponent, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  private authService= inject(AuthService);
-  private router = inject(Router);
-  
-  logout() {
-    this.authService.logout().subscribe({
-      next: () => {
-        console.log('Usuário deslogado com sucesso');
-        this.router.navigate(['/']);
-      },
-      error: () => {
-        console.error('Erro ao deslogar:');
-      }
-    });
+  private userService = inject(UserService);
+
+  ngOnInit() {
+    const uuid = sessionStorage.getItem('uuid_farm') ?? localStorage.getItem('uuid_farm');
+    if (uuid) {
+      this.userService.getUserProfile(uuid).subscribe();
+    }
   }
+
+
 }

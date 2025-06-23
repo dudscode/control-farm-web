@@ -60,14 +60,13 @@ export class LoginComponent implements OnInit {
   }
 
   goToLogin() {
-    this.rememberMe();
     const email = this.emailFormControl.value as string;
     const password = this.passwordFormControl.value as string;
-
+    
     this.authService.login(email, password).subscribe({
       next: (res) => {
-        console.log('Logado com sucesso:', res)
-        this.router.navigate(['/home']);
+        this.rememberMe(res.user?.uid);
+        this.router.navigate(['/home/vendas']);
       },
       error: (err) => {
         this._snackBar.open('Erro no login: ' + err.message, 'Fechar', {
@@ -78,12 +77,17 @@ export class LoginComponent implements OnInit {
 
   }
 
-  rememberMe() {
-    if (!this.checkedRememberLogin()) { this.clearLocalStorage(); return; }
+  rememberMe(uuid: string | undefined) {
+    if (!this.checkedRememberLogin()) { 
+      this.clearLocalStorage(); 
+      sessionStorage.setItem('uuid_farm', uuid ?? '');
+      return; 
+    }
     const email = this.emailFormControl.value;
     const password = this.passwordFormControl.value;
     localStorage.setItem('email_farm', email ?? '');
     localStorage.setItem('password_farm', password ?? '');
+    localStorage.setItem('uuid_farm', uuid ?? '');
   }
   
   clearLocalStorage() {

@@ -1,0 +1,40 @@
+<section class="header-container">
+    <mat-toolbar>
+        <div class="header-container__left">
+            <form class="header-container__left--search">
+                <mat-form-field class="header-container__left--search-form">
+                    <mat-label>
+                        <mat-icon>search</mat-icon>
+                        Search
+                    </mat-label>
+                    <input type="text" matInput [formControl]="searchControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                        (optionSelected)="reditectToLink($event.option.value)">
+                        @for (option of filteredOptions | async; track option) {
+                        <mat-option [value]="option">{{option.name}}</mat-option>
+                        }
+                    </mat-autocomplete>
+                </mat-form-field>
+            </form>
+        </div>
+
+        <div class="header-container__right">
+            <button mat-icon-button class="notifications" aria-label="Example icon-button with share icon">
+                <mat-icon [matBadge]="notificationsCount()">notifications</mat-icon>
+
+            </button>
+            <div class="header-container__right--image">
+                <img src="shared/assets/user.png" alt="User Image" class="user-image">
+            </div>
+            @if (user$().email ) {
+                <div class="header-container__right--user">
+                    <p>{{ user$()?.nome + user$()?.sobrenome }}</p>
+                    <span>Admin</span>
+                </div>
+            }
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar>
+</section>

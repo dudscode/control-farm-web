@@ -18,6 +18,27 @@ export const routes: Routes = [
         path: 'home',
         component: HomeComponent,
         canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'vendas',
+                loadComponent: () =>
+                    loadRemoteModule('control-farm-mfe', './Vendas').then((m) => m.VendasComponent),
+            },
+            {
+                path: 'producao',
+                loadComponent: () =>
+                    loadRemoteModule('control-farm-mfe', './Producao').then((m) => m.ProducaoComponent),
+            },
+            {
+                path: 'metas',
+                loadComponent: () =>
+                    loadRemoteModule('control-farm-mfe', './Metas').then((m) => m.MetasComponent),
+            },
+            {
+                path: '**',
+                redirectTo: 'vendas',
+            },
+        ]
     },
     {
         path: 'register',
@@ -29,11 +50,7 @@ export const routes: Routes = [
         component: NotFoundComponent,
     },
     {
-    path: 'mfe',
-    loadComponent: () =>
-        loadRemoteModule('control-farm-mfe', './Component').then((m) => m.AppComponent),
-  },{
-    path: '**',
-    redirectTo: '',
-  },
+        path: '**',
+        redirectTo: '',
+    },
 ];

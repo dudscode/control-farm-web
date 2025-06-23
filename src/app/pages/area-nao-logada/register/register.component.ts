@@ -47,9 +47,8 @@ export class RegisterComponent {
     
     this.authService.register(email, senha, nome)
       .subscribe({
-        next: () => this.router.navigate(['/home']),
+        next: () => this.router.navigate(['/home/vendas']),
         error: (err) => {
-          console.error('Erro no registro:', err);
           this._snackBar.open('Erro no registro: ' + err.message, 'Fechar', {
             duration: 5000
           });
