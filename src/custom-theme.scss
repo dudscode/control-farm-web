@@ -10,6 +10,8 @@ html {
       ),
       typography: Roboto,
       density: 0));
+  @include mat.autocomplete-overrides(( background-color: #F5F6FA,
+    ));
 
 }
 
@@ -28,4 +30,3 @@ body {
   margin: 0;
   padding: 0;
 }
-

@@ -20,6 +20,8 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
+    sessionStorage.removeItem('uuid_farm');
+    localStorage.removeItem('uuid_farm');
     return from(signOut(this.auth));
   }
   register(email: string, password: string, nome: string): Observable<void> {

@@ -36,8 +36,7 @@ export const routes: Routes = [
             },
             {
                 path: '**',
-                loadComponent: () =>
-                    loadRemoteModule('control-farm-mfe', './Vendas').then((m) => m.VendasComponent),
+                redirectTo: 'vendas',
             },
         ]
     },

@@ -1,0 +1,83 @@
+@use '@angular/material' as mat;
+
+.header-container {
+    padding-top: 10px;
+    background: white;
+
+    &__left {
+        width: 60%;
+
+        &--search {
+            width: 100%;
+
+            &-form {
+                width: 100%;
+            }
+
+
+            ::ng-deep .mat-mdc-text-field-wrapper {
+                border-radius: 30px;
+                border: 0.6px solid #D5D5D5;
+                width: 100%;
+                background: #F5F6FA;
+            }
+
+
+
+        }
+
+    }
+
+    &__right {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+
+        .notifications {
+            @include mat.icon-overrides((color: #4880FF,
+                ));
+        }
+
+        &--image {
+            img {
+                border-radius: 50%;
+                width: 50px;
+                height: 52px;
+                background: lightgray 0px 0px / 100% 100% no-repeat;
+            }
+
+        }
+
+        &--user {
+            display: flex;
+            gap: 3px;
+            flex-direction: column;
+
+            p {
+                color: #404040;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 700;
+            }
+
+            span {
+                color: #565656;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+        }
+    }
+
+    mat-toolbar {
+        justify-content: space-between;
+    }
+
+    @include mat.toolbar-overrides((container-background-color: white,
+
+        ));
+
+}

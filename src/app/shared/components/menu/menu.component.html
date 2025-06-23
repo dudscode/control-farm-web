@@ -5,18 +5,18 @@
             <img src="shared/assets/logo.svg" alt="Logo Farm">
         </div>
         <div class="menu-container-header__buttons">
-            <mat-button-toggle-group name="navigator" aria-label="Navegacao para a pagina" vertical="true"
+            <mat-button-toggle-group name="navigator" aria-label="Navegacao para a pagina" vertical="true" [value]="selectedValue()"
                 [hideSingleSelectionIndicator]="true">
-                <mat-button-toggle value="vendas" checked [routerLink]="['/home/vendas']">
+                <mat-button-toggle value="/home/vendas"  [routerLink]="['/home/vendas']">
                     <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="shopping_cart" ></mat-icon>
                     Vendas
                 </mat-button-toggle>
-                <mat-button-toggle value="producao" [routerLink]="['/home/producao']">
+                <mat-button-toggle value="/home/producao" [routerLink]="['/home/producao']">
                     <mat-icon aria-hidden="false" aria-label="Example home icon"
                         fontIcon="precision_manufacturing"></mat-icon>
                     Produção
                 </mat-button-toggle>
-                <mat-button-toggle value="metas" [routerLink]="['/home/metas']">
+                <mat-button-toggle value="/home/metas" [routerLink]="['/home/metas']">
                     <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="radar"></mat-icon>
                     Metas
                 </mat-button-toggle>

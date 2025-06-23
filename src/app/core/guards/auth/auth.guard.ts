@@ -15,11 +15,9 @@ export class AuthGuard implements CanActivate {
   private router = inject(Router);
 
   canActivate(): Observable<boolean | UrlTree> {
-    console.log('AuthGuard chamado');
     return this.authService.user$.pipe(
       map(user => {
         const permitido = !!user;
-        console.log('Usuário autenticado?', permitido);
         return permitido || this.router.createUrlTree(['/']);
       })
     );
