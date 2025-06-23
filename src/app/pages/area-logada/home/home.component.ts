@@ -3,7 +3,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MenuComponent } from '../../../shared/components/menu/menu.component';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../../../shared/components/header/header.component";
-import { UserService } from '../../../core/services/user/user.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -13,13 +13,10 @@ import { UserService } from '../../../core/services/user/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  private userService = inject(UserService);
+  private authService = inject(AuthService);
 
   ngOnInit() {
-    const uuid = sessionStorage.getItem('uuid_farm') ?? localStorage.getItem('uuid_farm');
-    if (uuid) {
-      this.userService.getUserProfile(uuid).subscribe();
-    }
+    this.authService.getUserProfile().subscribe();
   }
 
 

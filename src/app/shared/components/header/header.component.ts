@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ISearchOption, optionsSearch } from '../../helpers/search';
-import { UserService } from '../../../core/services/user/user.service';
+import { AuthService } from '../../../core/services/auth/auth.service';
 
 
 
@@ -29,8 +29,8 @@ import { UserService } from '../../../core/services/user/user.service';
 })
 export class HeaderComponent implements OnInit {
   private router = inject(Router);
-  private userService = inject(UserService);
-  readonly user$ = this.userService.user;
+  private authService = inject(AuthService);
+  readonly user$ = this.authService.userDados;
 
 
   searchControl = new FormControl<string | ISearchOption>('');
@@ -66,4 +66,23 @@ export class HeaderComponent implements OnInit {
 
     }
   }
+
+  updateProfile() {
+    this.authService.updateUserProfile({
+      nome: 'Eduarda',
+      sobrenome: 'Alves',
+      dataNascimento: '1990-01-01',
+      logradouro: 'Rua Exemplo',
+      numero: '123',
+      urlFotoPerfil: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz6OrnV4LqsxU7PyGFf7Pgg0rhVPpWpQrXVw&s'
+    }).subscribe(
+      (user) => {
+        console.log('Perfil atualizado com sucesso', user);
+      },
+      error => {
+        console.error('Erro ao atualizar perfil:', error);
+      }
+    )
+  }
+
 }
