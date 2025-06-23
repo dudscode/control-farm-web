@@ -8,16 +8,16 @@
             <mat-button-toggle-group name="navigator" aria-label="Navegacao para a pagina" vertical="true" [value]="selectedValue()"
                 [hideSingleSelectionIndicator]="true">
                 <mat-button-toggle value="/home/vendas"  [routerLink]="['/home/vendas']">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="shopping_cart" ></mat-icon>
+                    <mat-icon aria-hidden="false" aria-label="Icone vendas" fontIcon="shopping_cart" ></mat-icon>
                     Vendas
                 </mat-button-toggle>
                 <mat-button-toggle value="/home/producao" [routerLink]="['/home/producao']">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon"
+                    <mat-icon aria-hidden="false" aria-label="Icone producao"
                         fontIcon="precision_manufacturing"></mat-icon>
                     Produção
                 </mat-button-toggle>
                 <mat-button-toggle value="/home/metas" [routerLink]="['/home/metas']">
-                    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="radar"></mat-icon>
+                    <mat-icon aria-hidden="false" aria-label="Icone Metas" fontIcon="radar"></mat-icon>
                     Metas
                 </mat-button-toggle>
             </mat-button-toggle-group>
@@ -28,7 +28,7 @@
 
 
         <button mat-button (click)="logout()" >
-            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="logout"></mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Icone logout" fontIcon="logout"></mat-icon>
             Logout
         </button>
 

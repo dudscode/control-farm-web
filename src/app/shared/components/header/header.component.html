@@ -19,20 +19,22 @@
         </div>
 
         <div class="header-container__right">
-            <button mat-icon-button class="notifications" aria-label="Example icon-button with share icon">
+            <button mat-icon-button class="notifications" aria-label="Icone de notificações">
                 <mat-icon [matBadge]="notificationsCount()">notifications</mat-icon>
 
             </button>
-            <div class="header-container__right--image">
-                <img src="shared/assets/user.png" alt="User Image" class="user-image">
-            </div>
+            @if (user$().urlFotoPerfil ) {
+                <div class="header-container__right--image">
+                    <img [src]="user$()?.urlFotoPerfil" alt="User Image" class="user-image">
+                </div>
+            }
             @if (user$().email ) {
                 <div class="header-container__right--user">
-                    <p>{{ user$()?.nome + user$()?.sobrenome }}</p>
+                    <p>{{ user$()?.nome }}</p>
                     <span>Admin</span>
                 </div>
             }
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <button mat-icon-button  aria-label="Icone para abrir menu" (click)="updateProfile()">
                 <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
         </div>

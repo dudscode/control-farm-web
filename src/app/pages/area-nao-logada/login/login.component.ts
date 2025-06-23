@@ -80,14 +80,12 @@ export class LoginComponent implements OnInit {
   rememberMe(uuid: string | undefined) {
     if (!this.checkedRememberLogin()) { 
       this.clearLocalStorage(); 
-      sessionStorage.setItem('uuid_farm', uuid ?? '');
       return; 
     }
     const email = this.emailFormControl.value;
     const password = this.passwordFormControl.value;
     localStorage.setItem('email_farm', email ?? '');
     localStorage.setItem('password_farm', password ?? '');
-    localStorage.setItem('uuid_farm', uuid ?? '');
   }
   
   clearLocalStorage() {
