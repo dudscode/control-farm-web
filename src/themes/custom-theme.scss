@@ -1,0 +1,49 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.dev/guide/theming
+@use "@angular/material" as mat;
+@use "./theme-colors" as theme-colors;
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: theme-colors.$primary-palette,
+        tertiary: theme-colors.$secondary-palette,
+      ),
+      typography: "Nunito Sans",
+      density: 0,
+    )
+  );
+  @include mat.autocomplete-overrides(
+    (
+      background-color: #f5f6fa,
+    )
+  );
+}
+
+html,
+body,
+main {
+  height: 100vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f5f6fa;
+  font-family: "Nunito Sans", Roboto, sans-serif !important;
+}
+
+.mat-mdc-card {
+  background-color: #fff !important;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 32px;
+}
