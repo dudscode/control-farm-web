@@ -24,6 +24,7 @@
     "@softarc/native-federation-node": "^2.0.10",
     "es-module-shims": "^1.5.12",
     "firebase": "^11.9.1",
+    "ngx-mask": "^19.0.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
