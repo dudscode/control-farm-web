@@ -10,9 +10,14 @@ html {
       ),
       typography: Roboto,
       density: 0));
-  @include mat.autocomplete-overrides(( background-color: #F5F6FA,
+  @include mat.autocomplete-overrides((background-color: #F5F6FA,
     ));
 
+  @include mat.menu-overrides((
+      item-icon-color: #4880FF,
+      container-color: #FFFFFF,
+      divider-color: #979797
+    ));
 }
 
 html,

@@ -1,0 +1,48 @@
+<section class="alterar-perfil">
+    <div class="alterar-perfil-header">
+        <h2>Alterar Perfil</h2>
+        <p>Altere os dados do seu perfil.</p>
+    </div>
+    <div class="alterar-perfil-image">
+        @if(!urlProfilePicture.length){
+            <img class="alterar-perfil-image" src="shared/assets/sem-foto.png" alt="Imagem do Perfil">
+        } @else{
+            <img class="alterar-perfil-image" [src]="urlProfilePicture" alt="Imagem do Perfil">
+        }
+        <div class="upload-button">
+            <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        </div>
+    </div>
+    <form [formGroup]="formGroupProfile">
+
+        <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="nome">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Sobrenome</mat-label>
+            <input matInput formControlName="sobrenome">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Nascimento</mat-label>
+            <input matInput mask="d0/M0/0000" formControlName="dataNascimento">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Endereço</mat-label>
+            <input matInput formControlName="endereco">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="phone" mask="(00) 00000-0000">
+        </mat-form-field>
+
+    </form>
+    <div class="alterar-perfil-footer">
+        <button mat-flat-button [disabled]="disabled" (click)="editarProfilePicture()">
+            <mat-icon>edit</mat-icon>
+            Editar</button>
+
+    </div>
+
+</section>
