@@ -1,6 +1,8 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, UserCredential } from '@angular/fire/auth';
-import { from, map, Observable, switchMap } from 'rxjs';
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, updatePassword, EmailAuthProvider, reauthenticateWithCredential, UserCredential } from '@angular/fire/auth';
+import { catchError, from, map, Observable, switchMap, throwError } from 'rxjs';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 import {
   Firestore,
   doc,
@@ -49,7 +51,6 @@ export class AuthService {
     dataNascimento?: string;
     logradouro?: string;
     numero?: string;
-    urlFotoPerfil?: string;
     nome?: string;
   }): Observable<void> {
     return this.user$.pipe(
@@ -80,5 +81,40 @@ export class AuthService {
     );
   }
 
+  updateUserProfilePictureStorage(file: File): Observable<void> {
+    const storage = getStorage();
+    return this.user$.pipe(
+      switchMap((user) => {
+        if (!user) throw new Error('Usuário não autenticado.');
+        const userDocRef = doc(this.firestore, `users/${user.uid}`);
+        const storageRef = ref(storage, `${user.uid}/profile`);
+        return from(uploadBytes(storageRef, file)).pipe(
+          switchMap(() => getDownloadURL(storageRef)),
+          switchMap((downloadURL) => {
+            console.log('URL da foto de perfil:', downloadURL);
+            return from(updateDoc(userDocRef, { urlFotoPerfil: downloadURL }));
+          })
+        );
+      })
+    );
+  }
 
+
+
+ reauthenticate$(user: User, currentPassword: string): Observable<UserCredential> {
+    const credential = EmailAuthProvider.credential(user.email!, currentPassword);
+    return from(reauthenticateWithCredential(user, credential));
+  }
+
+  updateUserPassword(currentPassword: string, newPassword: string): Observable<void> {
+    const user = this.auth.currentUser;
+    if (!user) {
+      return throwError(() => new Error('Usuário não autenticado.'));
+    }
+
+    return this.reauthenticate$(user, currentPassword).pipe(
+      switchMap(() => from(updatePassword(user, newPassword))),
+      catchError(err => throwError(() => err))
+    );
+  }
 }

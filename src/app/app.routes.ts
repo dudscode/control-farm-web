@@ -6,6 +6,8 @@ import { RegisterComponent } from './pages/area-nao-logada/register/register.com
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { RedirectIfLoggedInGuard } from './core/guards/redirect/redirect.guards';
 import { NotFoundComponent } from './pages/area-nao-logada/not-found/not-found.component';
+import { AlterarPerfilComponent } from './pages/area-logada/alterar-perfil/alterar-perfil.component';
+import { ResetPasswordComponent } from './pages/area-logada/reset-password/reset-password.component';
 
 export const routes: Routes = [
     {
@@ -33,6 +35,14 @@ export const routes: Routes = [
                 path: 'metas',
                 loadComponent: () =>
                     loadRemoteModule('control-farm-mfe', './Metas').then((m) => m.MetasComponent),
+            },
+            {
+                path: 'alterar-perfil',
+                component: AlterarPerfilComponent
+            },
+            {
+                path: 'reset-password',
+                component: ResetPasswordComponent
             },
             {
                 path: '**',
