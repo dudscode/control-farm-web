@@ -25,6 +25,12 @@ export const routes: Routes = [
                 path: 'vendas',
                 loadComponent: () =>
                     loadRemoteModule('control-farm-mfe', './Vendas').then((m) => m.VendasComponent),
+
+            },
+            {
+                path: 'cadastro-vendas',
+                loadComponent: () =>
+                    loadRemoteModule('control-farm-mfe', './CadastroVendas').then((m) => m.CadastroVendasComponent),
             },
             {
                 path: 'producao',
@@ -32,9 +38,19 @@ export const routes: Routes = [
                     loadRemoteModule('control-farm-mfe', './Producao').then((m) => m.ProducaoComponent),
             },
             {
+                path: 'cadastro-produtos',
+                loadComponent: () =>
+                    loadRemoteModule('control-farm-mfe', './CadastroProdutos').then((m) => m.CadastroProdutosComponent),
+            },
+            {
                 path: 'metas',
                 loadComponent: () =>
                     loadRemoteModule('control-farm-mfe', './Metas').then((m) => m.MetasComponent),
+            },
+            {
+                path: 'cadastro-metas',
+                loadComponent: () =>
+                    loadRemoteModule('control-farm-mfe', './CadastroMetas').then((m) => m.CadastroMetasComponent),
             },
             {
                 path: 'alterar-perfil',

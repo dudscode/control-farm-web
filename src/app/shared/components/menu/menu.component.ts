@@ -23,12 +23,24 @@ export class MenuComponent  implements OnInit {
 
   hideSingleSelectionIndicator = signal(false);
   selectedValue = signal(this.router.url);
+  private urlValue : any= {
+    '/home/vendas': '/home/vendas',
+    '/home/cadastro-vendas': '/home/vendas',
+    '/home/producao': '/home/producao',
+    '/home/cadastro-produtos': '/home/producao',
+    '/home/metas': '/home/metas',
+    '/home/cadastro-metas': '/home/metas',
+  }
   ngOnInit() {
     this.router.events
     .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
     .subscribe(() => {
-      this.selectedValue.set(this.router.url);
+      this.validateSelection(this.router.url);
     });
+  }
+  validateSelection(value: string) {
+    const urlsSelected = this.urlValue[value] || this.urlValue['/home/vendas'];
+    this.selectedValue.set(urlsSelected);
   }
 
   logout() {
