@@ -6,6 +6,7 @@ module.exports = withNativeFederation({
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
   remotes: {
+  // incluir caminho do remoteEntry.js bucket
   'control-farm-mfe': 'http://localhost:4202/remoteEntry.js',
 },
 
