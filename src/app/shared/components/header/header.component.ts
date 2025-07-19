@@ -11,6 +11,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { ISearchOption, optionsSearch } from '../../helpers/search';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { NotificationService } from '../../../core/services/notification/notification.service';
+import {MatListModule} from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -21,18 +24,21 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatMenuModule],
+    MatMenuModule,
+    MatListModule,
+    MatDividerModule
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent  {
   private router = inject(Router);
   private authService = inject(AuthService);
+  readonly notificationService = inject(NotificationService);
   readonly user$ = this.authService.userDados;
 
-  notificationsCount = signal(0);
-
-  
+  notificationsCount = this.notificationService.notificationsCount;
+  notification = this.notificationService.notification;
 
   displayFn(search: ISearchOption): string {
     return search && search.name ? search.name : '';
@@ -46,6 +52,6 @@ export class HeaderComponent  {
   navigateTo(url: string) {
     this.router.navigate([url]);
   }
-
+  
 
 }

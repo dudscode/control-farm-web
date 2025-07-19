@@ -10,6 +10,7 @@ import {
   setDoc,
   updateDoc
 } from '@angular/fire/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -101,7 +102,7 @@ export class AuthService {
 
 
 
- reauthenticate$(user: User, currentPassword: string): Observable<UserCredential> {
+  reauthenticate$(user: User, currentPassword: string): Observable<UserCredential> {
     const credential = EmailAuthProvider.credential(user.email!, currentPassword);
     return from(reauthenticateWithCredential(user, credential));
   }
@@ -117,4 +118,44 @@ export class AuthService {
       catchError(err => throwError(() => err))
     );
   }
+
+  getNotifications(): Observable<any[]> {
+    const user = this.auth.currentUser;
+    if (!user) {
+      return throwError(() => new Error('Usuário não autenticado.'));
+    }
+
+    const notificationCollectionRef = collection(this.firestore, 'notification');
+    const q = query(notificationCollectionRef, where('uid', '==', user.uid));
+
+    return from(getDocs(q)).pipe(
+      map(snapshot => snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))),
+      catchError(error => throwError(() => new Error(`Erro ao buscar notificações: ${error.message}`)))
+    );
+  }
+  
+  markAllNotificationsAsRead(): Observable<void> {
+  const user = this.auth.currentUser;
+  if (!user) {
+    return throwError(() => new Error('Usuário não autenticado.'));
+  }
+
+  const notificationCollectionRef = collection(this.firestore, 'notification');
+  const q = query(notificationCollectionRef, where('uid', '==', user.uid));
+
+  return from(getDocs(q)).pipe(
+    switchMap(snapshot => {
+      const updates: Promise<any>[] = [];
+
+      snapshot.forEach(docSnap => {
+        const docRef = doc(this.firestore, 'notification', docSnap.id);
+        updates.push(updateDoc(docRef, { read: true }));
+      });
+
+      return from(Promise.all(updates)).pipe(map(() => void 0));
+    }),
+    catchError(error => throwError(() => new Error(`Erro ao marcar notificações como lidas: ${error.message}`)))
+  );
+}
+
 }

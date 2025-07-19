@@ -1,12 +1,27 @@
 <section class="header-container">
     <mat-toolbar>
-        
+
 
         <div class="header-container__right">
-            <button mat-icon-button class="notifications" aria-label="Icone de notificações">
+            <button mat-icon-button class="notifications" aria-label="Icone de notificações"
+                [matMenuTriggerFor]="notificatioMenu" (click)="notificationService.markAsRead()">
                 <mat-icon [matBadge]="notificationsCount()">notifications</mat-icon>
 
             </button>
+            <mat-menu #notificatioMenu="matMenu" xPosition="before">
+                <mat-list>
+                    @for (notification of notification(); track notification.id; let last = $last) {
+                    <mat-list-item>
+                        <span matListItemTitle>{{ notification.title }}</span>
+                        <span matListItemLine class="message">{{ notification.message }}</span>
+
+                    </mat-list-item>
+                    @if (!last) {
+                        <mat-divider></mat-divider>
+                    }
+                    }
+                </mat-list>
+            </mat-menu>
             @if (user$().urlFotoPerfil ) {
             <div class="header-container__right--image">
                 <img [src]="user$()?.urlFotoPerfil" alt="User Image" class="user-image">

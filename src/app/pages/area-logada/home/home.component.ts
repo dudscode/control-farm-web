@@ -4,6 +4,7 @@ import { MenuComponent } from '../../../shared/components/menu/menu.component';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "../../../shared/components/header/header.component";
 import { AuthService } from '../../../core/services/auth/auth.service';
+import { NotificationService } from '../../../core/services/notification/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +15,12 @@ import { AuthService } from '../../../core/services/auth/auth.service';
 export class HomeComponent implements OnInit {
 
   private authService = inject(AuthService);
+  private notificationService = inject(NotificationService);
 
   ngOnInit() {
-    this.authService.getUserProfile().subscribe();
+    this.authService.getUserProfile().subscribe(_ =>{
+      this.notificationService.getNotificationsCount();
+    });
   }
 
 
