@@ -14,10 +14,10 @@ html {
   @include mat.autocomplete-overrides((background-color: #F5F6FA,
     ));
 
-  @include mat.menu-overrides((
-      item-icon-color: #4880FF,
+  @include mat.menu-overrides((item-icon-color: #4880FF,
       container-color: #FFFFFF,
-      divider-color: #979797
+      divider-color: #979797));
+  @include mat.list-overrides((list-item-two-line-container-height: 80px
     ));
 }
 
