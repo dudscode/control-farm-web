@@ -7,7 +7,7 @@ module.exports = withNativeFederation({
   },
   remotes: {
   // incluir caminho do remoteEntry.js bucket
-  'control-farm-mfe': 'http://localhost:4202/remoteEntry.js',
+  'control-farm-mfe': 'https://d3fattc0qhjhmh.cloudfront.net/bundle/remoteEntry.js',
 },
 
   skip: [
