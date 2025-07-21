@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../../core/services/auth/auth.service';
 import { DatePipe } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-alterar-perfil',
@@ -23,6 +24,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AlterarPerfilComponent implements OnInit {
   private authService = inject(AuthService);
   private _snackBar = inject(MatSnackBar);
+  private router = inject(Router);
   formGroupProfile: FormGroup = new FormGroup({
     nome: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     sobrenome: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
@@ -118,9 +120,7 @@ export class AlterarPerfilComponent implements OnInit {
           duration: 2000
         });
         this.formEdited = false;
-        setTimeout(() => {
-          window.location.reload();
-        }, 2100);
+        this.router.navigate(['/home/vendas']);
       },
       error: (error) => {
         console.error('Erro ao atualizar perfil:', error);
